@@ -1,0 +1,6 @@
+{
+	"name": "fuchsium.roombuilder",
+	"version": "0.0.0",
+	"displayName": "RoomBuilder",
+	"description": "System for building levels from individual parts."
+}
