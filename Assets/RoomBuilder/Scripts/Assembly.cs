@@ -18,7 +18,7 @@ namespace RoomBuilder
         [field: Space, SerializeField] public AssemblyParameters Parameters {get; set;}
 
         [HideInInspector, SerializeField] private bool _debug;
-        [HideInInspector] internal GameObject _builtParent;
+        [HideInInspector, SerializeField] internal GameObject _builtParent;
 
         public void Rebuild()
         {

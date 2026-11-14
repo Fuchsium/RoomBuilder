@@ -12,6 +12,11 @@ namespace RoomBuilder.Editor
             base.OnInspectorGUI();
 
             var self = (Assembly)target;
+            
+            if(self._builtParent == null)
+            {
+                self._builtParent = self.transform.Find("__AssemblyBuiltMeshes").gameObject;
+            }
 
             GUI.enabled = false;
             EditorGUILayout.ObjectField("Build Result", self._builtParent, typeof(GameObject), allowSceneObjects: true);
