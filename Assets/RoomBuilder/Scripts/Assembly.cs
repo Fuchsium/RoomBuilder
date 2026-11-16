@@ -31,7 +31,9 @@ namespace RoomBuilder
                 newMeshName = "rbMesh_" + Guid.NewGuid().ToString("N");
             }
 
+            #if UNITY_EDITOR
             Undo.IncrementCurrentGroup();
+            #endif
             var built = transform.Find("__AssemblyBuiltMeshes");
             if(built != null)
             {

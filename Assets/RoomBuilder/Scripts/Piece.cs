@@ -60,7 +60,8 @@ namespace RoomBuilder
 
             for(var i=0; i<Materials.Length; i++) {
                 Materials[i].SetPass(i);
-                Graphics.DrawMeshNow(Mesh, Gizmos.matrix, i);
+                //Graphics.DrawMeshNow(Mesh, Gizmos.matrix, i);
+                Gizmos.DrawMesh(Mesh, i);
             }
         }
         #endif

@@ -44,6 +44,13 @@ namespace RoomBuilder.Editor
 
                 Undo.DestroyObjectImmediate(self._builtParent);
             }
+            if(self._builtParent != null)
+            {
+                if(GUILayout.Button(self._builtParent.activeSelf ? "Disable build result" : "Enable build result"))
+                {
+                    self._builtParent.SetActive(!self._builtParent.activeSelf);
+                }
+            }
         }
     }
 }
