@@ -15,7 +15,22 @@ namespace RoomBuilder
 
         private Assembly _assembly;
 
+        private void Awake()
+        {
+            if(TryGetComponent(out MeshRenderer renderer))
+            {
+                Destroy(renderer);
+            }
+            if(TryGetComponent(out MeshFilter filter))
+            {
+                Destroy(filter);
+            }
+        }
+
 #if UNITY_EDITOR
+        private MeshRenderer _meshRenderer;
+        private MeshFilter _meshFilter;
+
         private void OnValidate()
         {
             if(Mesh == null)
@@ -27,6 +42,15 @@ namespace RoomBuilder
             {
                 Array.Resize(ref _materials, Mesh.subMeshCount);
             }
+
+            _meshRenderer = GetComponent<MeshRenderer>();
+            _meshFilter = GetComponent<MeshFilter>();
+
+            if(_meshRenderer == null) _meshRenderer = gameObject.AddComponent<MeshRenderer>();
+            if(_meshFilter == null) _meshFilter = gameObject.AddComponent<MeshFilter>();
+
+            _meshRenderer.materials = Materials;
+            _meshFilter.mesh = Mesh;
         }
 
         private void OnDrawGizmosSelected()
@@ -44,25 +68,17 @@ namespace RoomBuilder
             }
             if(_assembly != null && !_assembly.Preview)
             {
+                _meshRenderer.enabled = false;
                 return;
             }
 
             if(Mesh == null || Materials.Length == 0 || !enabled || !gameObject.activeInHierarchy)
             {
+                _meshRenderer.enabled = false;
                 return;
             }
 
-            Gizmos.matrix = transform.localToWorldMatrix;
-
-            // Draw the mesh as an invisible gizmo so that it can be picked
-            Gizmos.color = new Color(0f, 0f, 0f, 0f);
-            Gizmos.DrawMesh(Mesh);
-
-            for(var i=0; i<Materials.Length; i++) {
-                Materials[i].SetPass(i);
-                //Graphics.DrawMeshNow(Mesh, Gizmos.matrix, i);
-                Gizmos.DrawMesh(Mesh, i);
-            }
+            _meshRenderer.enabled = true;
         }
         #endif
     }
