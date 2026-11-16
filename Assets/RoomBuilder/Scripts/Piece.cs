@@ -17,6 +17,7 @@ namespace RoomBuilder
 
         private void Awake()
         {
+            #if !UNITY_EDITOR
             if(TryGetComponent(out MeshRenderer renderer))
             {
                 Destroy(renderer);
@@ -25,6 +26,12 @@ namespace RoomBuilder
             {
                 Destroy(filter);
             }
+            #else
+            if(TryGetComponent(out MeshRenderer renderer))
+            {
+                renderer.enabled = true;
+            }
+            #endif
         }
 
 #if UNITY_EDITOR
