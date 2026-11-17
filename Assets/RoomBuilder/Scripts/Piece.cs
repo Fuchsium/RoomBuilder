@@ -27,9 +27,10 @@ namespace RoomBuilder
                 Destroy(filter);
             }
             #else
-            if(TryGetComponent(out MeshRenderer renderer))
+            var assembly = GetComponentInParent<Assembly>();
+            if(TryGetComponent(out MeshRenderer renderer) && assembly != null)
             {
-                renderer.enabled = true;
+                renderer.enabled = assembly.Preview;
             }
             #endif
         }
@@ -72,6 +73,10 @@ namespace RoomBuilder
             if(_assembly == null)
             {
                 _assembly = GetComponentInParent<Assembly>();
+            }
+            if(_meshRenderer == null)
+            {
+                _meshRenderer = GetComponent<MeshRenderer>();
             }
             if(_assembly != null && !_assembly.Preview)
             {
