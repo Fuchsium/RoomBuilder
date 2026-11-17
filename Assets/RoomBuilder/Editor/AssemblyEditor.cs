@@ -15,7 +15,10 @@ namespace RoomBuilder.Editor
             
             if(self._builtParent == null)
             {
-                self._builtParent = self.transform.Find("__AssemblyBuiltMeshes").gameObject;
+                var tr = self.transform.Find("__AssemblyBuiltMeshes");
+                if(tr != null) {
+                    self._builtParent = tr.gameObject;
+                }
             }
 
             GUI.enabled = false;
